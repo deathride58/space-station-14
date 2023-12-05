@@ -106,8 +106,8 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             }
 
             // Take a gas sample.
-            var ratio = MathF.Min(1f, timeDelta * transferRate / tile.Volume);
-            var removed = tile.RemoveRatio(ratio);
+            var ratio = timeDelta * tile.TotalMoles * (transferRate / tile.Volume);
+            var removed = tile.Remove(ratio);
 
             // Nothing left to remove from the tile.
             if (MathHelper.CloseToPercent(removed.TotalMoles, 0f))
